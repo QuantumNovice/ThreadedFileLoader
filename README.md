@@ -44,3 +44,26 @@ instance = ThreadedTextLoader("path_to_/*.txt")
 instance.start_loading()
 texts = instance.loaded_objects
 ```
+
+# Machine Learning Example
+## Loading Dataset
+
+
+```Python
+import numpy as np
+
+from ThreadedFileLoader.ThreadedFileLoader import *
+from sklearn.cluster import KMeans
+
+
+instance = ThreadedImageLoader("path_to_dataset/*.jpg")
+instance.start_loading()
+images = instance.loaded_objects
+images = np.array(images)
+images = images.reshape(len(images), -1)
+
+kmeans = KMeans(n_clusters=10, random_state=0).fit(images)
+
+print(kmeans.labels_)
+
+```
