@@ -15,6 +15,8 @@ from ThreadedFileLoader.ThreadedFileLoader import *
 instance = ThreadedImageLoader("path_to_/*.jpg")
 instance.start_loading()
 images = instance.loaded_objects
+print(len(images))
+print(images[0].shape)
 ```
 
 ## Loading Text Files:
