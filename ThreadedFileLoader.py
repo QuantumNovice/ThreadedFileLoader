@@ -1,6 +1,7 @@
 from threading import Thread
 import imageio
 import glob
+import time
 
 
 class ThreadedFileLoader:
@@ -28,6 +29,18 @@ class ThreadedFileLoader:
     def __thread_worker(self):
         for i, file_path in enumerate(self.file_paths):
             Thread(target=self.loading_function(file_path)).start()
+
+    def batched_thread_worker(self, batch_size, delay):
+        """
+        This function waits `delay` seconds after every batch for the
+        previous threads to start finish it's work.
+        In case start_loading gives max thread error use this.
+
+        """
+        for i, file_path in enumerate(self.file_paths):
+            Thread(target=self.loading_function(file_path)).start()
+            if i % batch_size == 0:
+                time.sleep(delay)
 
     def start_loading(self):
         self.__thread_worker()
